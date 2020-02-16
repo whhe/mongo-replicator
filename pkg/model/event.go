@@ -20,6 +20,6 @@ type ChangeEvent struct {
 }
 
 type Namespace struct {
-	DB         string `bson:"db,omitempty" json:"db,omitempty"`
+	Database   string `bson:"db,omitempty" json:"db,omitempty"`
 	Collection string `bson:"coll,omitempty" json:"coll,omitempty"`
 }
