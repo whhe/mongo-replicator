@@ -4,11 +4,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/whhe/mongo-replicator/pkg/collector"
-	"github.com/whhe/mongo-replicator/pkg/model"
-	"github.com/whhe/mongo-replicator/pkg/operator"
-	"github.com/whhe/mongo-replicator/pkg/replicator"
-	"github.com/whhe/mongo-replicator/pkg/token"
+	"github.com/whhe/mongo-replicator/collector"
+	"github.com/whhe/mongo-replicator/model"
+	"github.com/whhe/mongo-replicator/operator"
+	"github.com/whhe/mongo-replicator/replicator"
+	"github.com/whhe/mongo-replicator/token"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 

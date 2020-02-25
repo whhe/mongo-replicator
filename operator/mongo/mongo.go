@@ -3,9 +3,8 @@ package mongo
 import (
 	"context"
 
-	"github.com/whhe/mongo-replicator/pkg/operator"
-
-	"github.com/whhe/mongo-replicator/pkg/model"
+	"github.com/whhe/mongo-replicator/model"
+	"github.com/whhe/mongo-replicator/operator"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

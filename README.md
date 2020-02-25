@@ -68,7 +68,7 @@ Include Mongo Replicator in your project:
 import "github.com/whhe/mongo-replicator"
 ```
 
-See [example.go](./internal/example/example.go) for reference.
+See [example.go](example/example.go) for reference.
 
 ## License
 

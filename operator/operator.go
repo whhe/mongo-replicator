@@ -1,6 +1,6 @@
 package operator
 
-import "github.com/whhe/mongo-replicator/pkg/model"
+import "github.com/whhe/mongo-replicator/model"
 
 // Operator interface can be used to provide the replicator.Replicator with custom
 // implementations to deal with change event documents.

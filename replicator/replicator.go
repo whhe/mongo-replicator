@@ -3,8 +3,8 @@ package replicator
 import (
 	"errors"
 
-	"github.com/whhe/mongo-replicator/pkg/model"
-	"github.com/whhe/mongo-replicator/pkg/operator"
+	"github.com/whhe/mongo-replicator/model"
+	"github.com/whhe/mongo-replicator/operator"
 )
 
 // Replicator is a wrapper for operator.Operator.
