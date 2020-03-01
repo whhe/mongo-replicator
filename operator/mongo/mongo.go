@@ -45,8 +45,24 @@ func (m *mongoOperator) Replace(e model.ChangeEvent) error {
 
 func (m *mongoOperator) Update(e model.ChangeEvent) error {
 	if e.FullDocument == nil {
-		// TODO: use updateDescription instead
-		panic("update event requires to open change streams with updateLookup option")
+		update := bson.M{}
+
+		if len(e.UpdateDescription.UpdatedFields) != 0 {
+			update["$set"] = e.UpdateDescription.UpdatedFields
+		}
+
+		if len(e.UpdateDescription.RemovedFields) != 0 {
+			unset := bson.M{}
+			for _, field := range e.UpdateDescription.RemovedFields {
+				unset[field] = ""
+			}
+			update["$unset"] = unset
+		}
+
+		_, err := m.Database(e.Namespace.Database).
+			Collection(e.Namespace.Collection).
+			UpdateOne(context.Background(), e.DocumentKey, update)
+		return err
 	}
 	return m.Replace(e)
 }
