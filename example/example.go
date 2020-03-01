@@ -6,7 +6,7 @@ import (
 
 	"github.com/whhe/mongo-replicator/collector"
 	"github.com/whhe/mongo-replicator/model"
-	"github.com/whhe/mongo-replicator/operator"
+	"github.com/whhe/mongo-replicator/operator/mongo"
 	"github.com/whhe/mongo-replicator/replicator"
 	"github.com/whhe/mongo-replicator/token"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -14,13 +14,14 @@ import (
 
 func main() {
 	// conf
-	mongoUri := "mongodb://xxx"
+	sourceUri := "mongodb://xxx"
+	targetUri := "mongodb://yyy"
 	db := []string{"db"}
 	coll := []string{"collA", "collB"}
 	redisUri := "redis://xxx"
 	redisKey := "resumeToken"
 
-	// setup resume token tokenManager
+	// setup resume token manager
 	tokenManager, err := token.NewRedisManager(redisUri, redisKey)
 	if err != nil {
 		log.Fatal(err)
@@ -34,14 +35,18 @@ func main() {
 	}
 
 	// set collector and fetch change streams
-	stream, err := collector.New(mongoUri, db, coll).Collect(opt)
+	stream, err := collector.New(sourceUri, db, coll).Collect(opt)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stream.Close(context.TODO())
 
 	// setup replicator
-	repl := replicator.New(operator.NewNoopOperator())
+	op, err := mongo.NewOperator(targetUri)
+	if err != nil {
+		log.Fatal(err)
+	}
+	repl := replicator.New(op)
 
 	// iterate the change stream and sync change event until the change stream is closed
 	// by the server or there is an error getting the next event.
