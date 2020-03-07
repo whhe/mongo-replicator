@@ -62,10 +62,12 @@ You can implement your own Operator and use it to customize the replication of c
 
 ## Getting Started
 
-Include Mongo Replicator in your project:
+Install and import packages of Mongo Replicator into your project.
 
 ```go
-import "github.com/whhe/mongo-replicator"
+import "github.com/whhe/mongo-replicator/collector"
+import "github.com/whhe/mongo-replicator/model"
+...
 ```
 
 See [example.go](example/example.go) for reference.
