@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// OpLog represents the document of operations log in "local.oplog.rs" collection.
 // See https://docs.mongodb.com/manual/core/replica-set-oplog/
 type OpLog struct {
 	OpTime        primitive.Timestamp `bson:"ts" json:"ts"`

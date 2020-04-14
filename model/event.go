@@ -5,6 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// ChangeEvent represents the document of change stream.
 // See https://docs.mongodb.com/manual/reference/change-events/
 type ChangeEvent struct {
 	ID                bson.Raw  `bson:"_id" json:"_id"`
@@ -22,6 +23,7 @@ type ChangeEvent struct {
 	SessionIdentifier bson.Raw            `bson:"lsid,omitempty" json:"lsid,omitempty"`
 }
 
+// Namespace contains database name and collection name.
 type Namespace struct {
 	Database   string `bson:"db,omitempty" json:"db,omitempty"`
 	Collection string `bson:"coll,omitempty" json:"coll,omitempty"`

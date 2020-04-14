@@ -22,7 +22,7 @@ Collector represent the data source to watch.
 You can set the watch scope when creating a Collector instance. According to the params, the data source can be a deployment (either a replica set or a sharded cluster), several databases or collections.
 
 ```go
-New(uri string, databases []string, collections []string) *Collector 
+NewCollector(uri string, databases []string, collections []string) *Collector 
 ```
 
 The Collector instance has a `Collect` method to perform the watch action.
@@ -35,7 +35,7 @@ See [ChangeStreamOptions](https://godoc.org/go.mongodb.org/mongo-driver/mongo/op
 
 ### Replicator
 
-Replicator is the unified interface to perform the replication. It is initialized by a Operator and has only one method `Replicate`.
+Replicator is the unified interface to perform the replication. It is initialized by an Operator and has only one method `Replicate`.
 
 ```go
 func (r *Replicator) Replicate(e model.ChangeEvent) error 
@@ -43,7 +43,7 @@ func (r *Replicator) Replicate(e model.ChangeEvent) error
 
 ### Operator
 
-Operator defined the functions need to be implemented.
+Operator defined the functions need to be implemented for the target container to replicate data.
 
 ```go
 type Operator interface {
@@ -58,19 +58,17 @@ type Operator interface {
 }
 ```
 
-You can implement your own Operator and use it to customize the replication of changes.
+You can implement your own Operator to customize the replication logic.
 
 ## Getting Started
 
-Install and import packages of Mongo Replicator into your project.
+Import packages of Mongo Replicator into your project.
 
 ```go
-import "github.com/whhe/mongo-replicator/collector"
-import "github.com/whhe/mongo-replicator/model"
-...
+import "github.com/whhe/mongo-replicator"
 ```
 
-See [example.go](example/example.go) for reference.
+See [example_test.go](example_test.go) for reference.
 
 ## License
 

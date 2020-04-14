@@ -9,11 +9,11 @@ import (
 
 // Replicator is a wrapper for operator.Operator.
 type Replicator struct {
-	operator.Operator
+	op operator.Operator
 }
 
-// New creates a Replicator instance.
-func New(operator operator.Operator) *Replicator {
+// NewReplicator creates a Replicator instance.
+func NewReplicator(operator operator.Operator) *Replicator {
 	return &Replicator{operator}
 }
 
@@ -21,21 +21,21 @@ func New(operator operator.Operator) *Replicator {
 func (r *Replicator) Replicate(e model.ChangeEvent) error {
 	switch e.OperationType {
 	case "insert":
-		return r.Insert(e)
+		return r.op.Insert(e)
 	case "delete":
-		return r.Delete(e)
+		return r.op.Delete(e)
 	case "replace":
-		return r.Replace(e)
+		return r.op.Replace(e)
 	case "update":
-		return r.Update(e)
+		return r.op.Update(e)
 	case "drop":
-		return r.Drop(e)
+		return r.op.Drop(e)
 	case "rename":
-		return r.Rename(e)
+		return r.op.Rename(e)
 	case "dropDatabase":
-		return r.DropDatabase(e)
+		return r.op.DropDatabase(e)
 	case "invalidate":
-		return r.Invalidate(e)
+		return r.op.Invalidate(e)
 	default:
 		return errors.New("invalid operation type: " + e.OperationType)
 	}

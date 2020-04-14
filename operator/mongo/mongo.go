@@ -3,17 +3,19 @@ package mongo
 import (
 	"context"
 
-	"github.com/whhe/mongo-replicator/model"
-	"github.com/whhe/mongo-replicator/operator"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"github.com/whhe/mongo-replicator/model"
+	"github.com/whhe/mongo-replicator/operator"
 )
 
 type mongoOperator struct {
 	*mongo.Client
 }
 
+// NewOperator creates a mongoOperator instance.
 func NewOperator(uri string) (operator.Operator, error) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {

@@ -1,4 +1,4 @@
-package collector
+package replicator
 
 import (
 	"context"
@@ -16,8 +16,8 @@ type Collector struct {
 	pipeline mongo.Pipeline
 }
 
-// New creates a new Collector instance.
-func New(uri string, databases []string, collections []string) *Collector {
+// NewCollector creates a new Collector instance.
+func NewCollector(uri string, databases []string, collections []string) *Collector {
 	var (
 		db   string
 		coll string
