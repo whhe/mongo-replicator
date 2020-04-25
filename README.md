@@ -13,11 +13,11 @@ For ChangeStreamOptions, [startAtOperationTime](https://docs.mongodb.com/manual/
 
 ## Concepts
 
-Mongo Replicator is built on structure of Collector, Replicator and Operator.
+Mongo Replicator consists of Collector, Replicator and Operator.
 
 ### Collector
 
-Collector represent the data source to watch. 
+Collector represents the data source to watch. 
 
 You can set the watch scope when creating a Collector instance. According to the params, the data source can be a deployment (either a replica set or a sharded cluster), several databases or collections.
 
@@ -25,7 +25,7 @@ You can set the watch scope when creating a Collector instance. According to the
 NewCollector(uri string, databases []string, collections []string) *Collector 
 ```
 
-The Collector instance has a `Collect` method to perform the watch action.
+Collector has a `Collect` method to perform the watch action.
 
 ```go
 (c *Collector) Collect(opts ...*options.ChangeStreamOptions) (*mongo.ChangeStream, error)
@@ -43,7 +43,7 @@ func (r *Replicator) Replicate(e model.ChangeEvent) error
 
 ### Operator
 
-Operator defined the functions need to be implemented for the target container to replicate data.
+Operator interface defined the methods need to be implemented for the target container to deal with [change event](https://docs.mongodb.com/manual/reference/change-events/) documents.
 
 ```go
 type Operator interface {
@@ -60,16 +60,10 @@ type Operator interface {
 
 You can implement your own Operator to customize the replication logic.
 
-## Getting Started
+## Usage and Example
 
-Import packages of Mongo Replicator into your project.
-
-```go
-import "github.com/whhe/mongo-replicator"
-```
-
-See [example_test.go](example_test.go) for reference.
+See [example](example_test.go) and [godoc](https://godoc.org/github.com/whhe/mongo-replicator) for reference.
 
 ## License
 
-Mongo Replicator is released under the Apache 2.0 license. See [LICENSE](LICENSE)
+[Apache 2.0 License](LICENSE)
