@@ -46,27 +46,24 @@ func (m *mongoOperator) Replace(e model.ChangeEvent) error {
 }
 
 func (m *mongoOperator) Update(e model.ChangeEvent) error {
-	if e.FullDocument == nil {
-		update := bson.M{}
+	update := bson.M{}
 
-		if len(e.UpdateDescription.UpdatedFields) != 0 {
-			update["$set"] = e.UpdateDescription.UpdatedFields
-		}
-
-		if len(e.UpdateDescription.RemovedFields) != 0 {
-			unset := bson.M{}
-			for _, field := range e.UpdateDescription.RemovedFields {
-				unset[field] = ""
-			}
-			update["$unset"] = unset
-		}
-
-		_, err := m.Database(e.Namespace.Database).
-			Collection(e.Namespace.Collection).
-			UpdateOne(context.Background(), e.DocumentKey, update)
-		return err
+	if len(e.UpdateDescription.UpdatedFields) != 0 {
+		update["$set"] = e.UpdateDescription.UpdatedFields
 	}
-	return m.Replace(e)
+
+	if len(e.UpdateDescription.RemovedFields) != 0 {
+		unset := bson.M{}
+		for _, field := range e.UpdateDescription.RemovedFields {
+			unset[field] = ""
+		}
+		update["$unset"] = unset
+	}
+
+	_, err := m.Database(e.Namespace.Database).
+		Collection(e.Namespace.Collection).
+		UpdateOne(context.Background(), e.DocumentKey, update)
+	return err
 }
 
 func (m *mongoOperator) Drop(e model.ChangeEvent) error {
@@ -76,8 +73,8 @@ func (m *mongoOperator) Drop(e model.ChangeEvent) error {
 }
 
 func (m *mongoOperator) Rename(e model.ChangeEvent) error {
-	from := e.Namespace.Database + "." + e.Namespace.Collection
-	to := e.To.Database + "." + e.To.Collection
+	from := e.Namespace.String()
+	to := e.To.String()
 
 	result := m.Database("admin").
 		RunCommand(

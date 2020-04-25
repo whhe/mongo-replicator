@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -27,4 +29,8 @@ type ChangeEvent struct {
 type Namespace struct {
 	Database   string `bson:"db,omitempty" json:"db,omitempty"`
 	Collection string `bson:"coll,omitempty" json:"coll,omitempty"`
+}
+
+func (ns Namespace) String() string {
+	return fmt.Sprintf("%s.%s", ns.Database, ns.Collection)
 }
