@@ -39,7 +39,7 @@ func NewCollector(uri string, databases []string, collections []string) *Collect
 }
 
 func newPipeline(databases []string, collections []string) mongo.Pipeline {
-	match := make([]bson.E, 0)
+	var match []bson.E
 	if len(databases) > 0 {
 		match = append(match, bson.E{Key: "ns.db", Value: bson.M{"$in": databases}})
 	}
