@@ -1,5 +1,11 @@
 # Mongo Replicator
 
+[![Tag](https://img.shields.io/github/v/tag/whhe/mongo-replicator.svg)](https://github.com/whhe/mongo-replicator/releases)
+[![GoDoc](https://godoc.org/github.com/whhe/mongo-replicator?status.svg)](https://godoc.org/github.com/whhe/mongo-replicator)
+[![GitHub license](https://img.shields.io/github/license/whhe/mongo-replicator)](https://github.com/whhe/mongo-replicator/blob/master/LICENSE)
+[![codebeat badge](https://codebeat.co/badges/c0fac453-c67c-490d-8b38-05c07a1a75e7)](https://codebeat.co/projects/github-com-whhe-mongo-replicator-master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/whhe/mongo-replicator)](https://goreportcard.com/report/github.com/whhe/mongo-replicator)
+
 Mongo Replicator is a real-time replication tool for MongoDB replica set. It use [Change Streams](https://docs.mongodb.com/manual/changeStreams/) to fetch real-time data changes, with which users can sync data to other containers in real time.
 
 ## Requirements
